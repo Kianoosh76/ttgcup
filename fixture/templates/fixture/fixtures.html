@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <style>
-        th{
+        th {
             text-align: center;
         }
     </style>
@@ -41,24 +41,26 @@
         {% for fixtures in fixture_set %}
             {% csrf_token %}
             {% for fixture in fixtures %}
-                {% with player1=fixture.player1 %}
-                    {{ player1.player }}
-                    {% if player1.score is None %}
-                        <input type="text" name="score-{{ fixture.id }}-1" class="form-control">
-                    {% else %}
-                        {{ player1.score }}
-                    {% endif %}
-                {% endwith %}
-                -
-                {% with player2=fixture.player2 %}
-                    {% if player2.score is None %}
-                        <input type="text" name="score-{{ fixture.id }}-2" class="form-control">
-                    {% else %}
-                        {{ player2.score }}
-                    {% endif %}
-                    {{ player2.player }}
-                {% endwith %}
-                <br>
+                <div class="row">
+                    {% with player1=fixture.player1 %}
+                        {{ player1.player }}
+                        {% if player1.score is None %}
+                            <input type="text" name="score-{{ fixture.id }}-1" size="2">
+                        {% else %}
+                            {{ player1.score }}
+                        {% endif %}
+                    {% endwith %}
+                    -
+                    {% with player2=fixture.player2 %}
+                        {% if player2.score is None %}
+                            <input type="text" name="score-{{ fixture.id }}-2" size="2">
+                        {% else %}
+                            {{ player2.score }}
+                        {% endif %}
+                        {{ player2.player }}
+                    {% endwith %}
+                    <br>
+                </div>
             {% endfor %}
             -----<br>
         {% endfor %}
