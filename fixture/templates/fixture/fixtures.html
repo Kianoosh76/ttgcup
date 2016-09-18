@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TTG Cup 11</title>
+</head>
+<body dir="rtl">
+
+<nav>
+    <a href="{% url 'fixture:fixtures' 1 %}">گروه ۱</a>
+    <a href="{% url 'fixture:fixtures' 2 %}">گروه ۲</a>
+    <a href="{% url 'fixture:fixtures' 3 %}">گروه ۳</a>
+    <a href="{% url 'fixture:fixtures' 4 %}">گروه ۴</a>
+</nav>
+
+<form method="post">
+{% for fixtures in fixture_set %}
+    {% csrf_token %}
+    {% for fixture in fixtures %}
+        {% with player1=fixture.player1 %}
+            {{ player1.player }}
+            {% if player1.score is None %}
+                <input type="text" name="score-{{fixture.id}}-1">
+            {% else %}
+                {{ player1.score }}
+                {% endif %}
+        {% endwith %}
+        -
+        {% with player2=fixture.player2 %}
+            {% if player2.score is None %}
+                <input type="text" name="score-{{fixture.id}}-2">
+            {% else %}
+                {{ player2.score }}
+            {% endif %}
+            {{ player2.player }}
+        {% endwith %}
+    <br>
+    {% endfor %}
+    -----<br>
+{% endfor %}
+رتبه بندی
+    <table>
+    <thead>
+    <th>بازیکن</th>
+    <th>بازی</th>
+    <th>امتیاز</th>
+    <th>تفاضل گل</th>
+    <th>نسبت گل</th>
+    <th>گل زده</th>
+    <th>گل خورده</th>
+
+    </thead>
+    <tbody>
+    {% for player in standings %}
+        <tr>
+            <td>{{player.name}}</td>
+            <td>{{player.games_played}}</td>
+            <td>{{player.score}}</td>
+            <td>{{player.goal_diff}}</td>
+            <td>{{player.goal_ratio|floatformat:3}}</td>
+            <td>{{player.goals_scored}}</td>
+            <td>{{player.goals_conceded}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+<button type="submit">ثبت</button>
+</form>
+</body>
+</html>
