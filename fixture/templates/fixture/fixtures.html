@@ -13,6 +13,9 @@
         th {
             text-align: center;
         }
+        .fasele{
+            margin:10px;
+        }
     </style>
 </head>
 <body dir="rtl">
@@ -41,7 +44,7 @@
         {% for fixtures in fixture_set %}
             {% csrf_token %}
             {% for fixture in fixtures %}
-                <div class="row">
+                <div class="fasele">
                     {% with player1=fixture.player1 %}
                         {{ player1.player }}
                         {% if player1.score is None %}
