@@ -99,5 +99,3 @@ cities/fixtures/****
 **/migrations/**
 !**/migrations/__init__.py
 tmp.txt
-
-fixture/config.py
